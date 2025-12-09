@@ -4,7 +4,7 @@
 
 - [Flutter](https://flutter.dev/)
 - [GetX](https://chornthorn.github.io/getx-docs/docs)
-- [DeepWiki](https://deepwiki.com/you-want/flutter-td-getx-template)
+- [DeepWiki](https://deepwiki.com/you-want/flutter-template)
 
 ## 🚀 项目简介
 
@@ -197,12 +197,6 @@ flutter build ios --release --obfuscate --split-debug-info=./debug_info
 - 遵循 Dart 官方代码规范
 - 使用 flutter_lints 进行基础代码检查
 - 保持代码的可读性和一致性
-
-## 🤝 感谢
-
-本项目最初 fork 自优秀的开源模板 [Joker-x-dev/td-flutter-getx-template](https://github.com/Joker-x-dev/td-flutter-getx-template)，在此对原项目作者表示诚挚感谢 🙏。
-
-在此基础上，结合个人使用场景与实际需求进行了优化与扩展。
 
 ---
 
