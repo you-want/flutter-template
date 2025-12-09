@@ -1,5 +1,5 @@
-import 'package:flutter_td_getx_template/core/base/base/base_logic.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/base/base/base_logic.dart';
+import 'package:flutter/material.dart';
 
 import '../models/demo_item.dart';
 import '../states/network_demo_state.dart';
@@ -19,31 +19,31 @@ class NetworkDemoLogic extends BaseLogic {
       DemoItem(
         title: 'API Service 示例',
         description: '展示 API 接口服务的使用',
-        icon: TDIcons.api,
+        icon: Icons.http,
         onTap: _onApiServiceTap,
       ),
       DemoItem(
         title: '网络拦截器示例',
         description: '展示请求和响应拦截器的使用',
-        icon: TDIcons.filter,
+        icon: Icons.filter_alt,
         onTap: _onInterceptorTap,
       ),
       DemoItem(
         title: '错误处理示例',
         description: '展示网络请求错误处理机制',
-        icon: TDIcons.error_circle,
+        icon: Icons.error_outline,
         onTap: _onErrorHandlingTap,
       ),
       DemoItem(
         title: '数据序列化示例',
         description: '展示 JSON 数据的序列化和反序列化',
-        icon: TDIcons.transform,
+        icon: Icons.transform,
         onTap: _onSerializationTap,
       ),
       DemoItem(
         title: 'Alice 调试示例',
         description: '展示网络请求调试工具的使用',
-        icon: TDIcons.bug,
+        icon: Icons.bug_report,
         onTap: _onAliceDebuggerTap,
       ),
     ];

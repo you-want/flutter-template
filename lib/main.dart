@@ -4,8 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart';
 import 'package:get/get.dart';
-import 'package:flutter_td_getx_template/routes/app_pages.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/routes/app_pages.dart';
 
 import 'application.dart';
 
@@ -35,10 +34,7 @@ class MyApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             initialRoute: Routes.MAIN,
             locale: const Locale('zh', 'CN'),
-            theme: ThemeData(
-              extensions: [themeData],
-              colorScheme: ColorScheme.light(primary: themeData.brandNormalColor),
-            ),
+            theme: themeData,
             builder: BotToastInit(),
             navigatorObservers: [BotToastNavigatorObserver()],
             getPages: AppPages.routes,

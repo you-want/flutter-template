@@ -1,5 +1,5 @@
-import 'package:flutter_td_getx_template/core/base/base/base_logic.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/base/base/base_logic.dart';
+import 'package:flutter/material.dart';
 
 import '../models/demo_item.dart';
 import '../states/utils_demo_state.dart';
@@ -19,37 +19,37 @@ class UtilsDemoLogic extends BaseLogic {
       DemoItem(
         title: '路由管理工具',
         description: '展示路由跳转和管理功能',
-        icon: TDIcons.location,
+        icon: Icons.place,
         onTap: _onRouteManagerTap,
       ),
       DemoItem(
         title: '存储工具示例',
         description: '展示本地数据存储和读取',
-        icon: TDIcons.folder,
+        icon: Icons.folder,
         onTap: _onStorageUtilTap,
       ),
       DemoItem(
         title: '屏幕适配工具',
         description: '展示屏幕尺寸适配功能',
-        icon: TDIcons.desktop,
+        icon: Icons.desktop_windows,
         onTap: _onSizeUtilTap,
       ),
       DemoItem(
         title: '弹窗提示工具',
         description: '展示 Toast 和 Alert 提示功能',
-        icon: TDIcons.notification,
+        icon: Icons.notifications,
         onTap: _onAlertUtilTap,
       ),
       DemoItem(
         title: '通用工具方法',
         description: '展示各种通用的工具方法',
-        icon: TDIcons.tools,
+        icon: Icons.build,
         onTap: _onCommonUtilTap,
       ),
       DemoItem(
         title: '包信息工具',
         description: '展示应用包信息获取功能',
-        icon: TDIcons.info_circle,
+        icon: Icons.info_outline,
         onTap: _onPackageInfoUtilTap,
       ),
     ];

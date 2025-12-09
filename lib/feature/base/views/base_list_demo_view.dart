@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_td_getx_template/core/base/base_list/base_list_view.dart';
+import 'package:flutter_template/core/base/base_list/base_list_view.dart';
 
 import '../../../core/design_system/theme/color.dart';
 import '../../../core/model/entity/goods/goods.dart';

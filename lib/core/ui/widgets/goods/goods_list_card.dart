@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:flutter_td_getx_template/core/design_system/widgets/column.dart';
-import 'package:flutter_td_getx_template/core/design_system/widgets/row.dart';
-import 'package:flutter_td_getx_template/core/extensions/interaction_extensions.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/design_system/widgets/column.dart';
+import 'package:flutter_template/core/design_system/widgets/row.dart';
+import 'package:flutter_template/core/extensions/interaction_extensions.dart';
 
 import '../../../design_system/theme/color.dart';
 import '../../../design_system/theme/shape.dart';
@@ -40,8 +39,34 @@ class GoodsListCard extends StatelessWidget {
 
   /// 构建商品图片
   Widget _buildProductImage() {
-    // 如果有主图，显示图片
-    return TDImage(imgUrl: goods.mainPic, width: 100, height: 100);
+    // 安全处理：当主图为空或非法时显示占位
+    final url = goods.mainPic;
+    if (url.isEmpty) {
+      return Container(
+        width: 100,
+        height: 100,
+        decoration: BoxDecoration(
+          color: backgroundSecondaryContainer,
+          borderRadius: BorderRadius.circular(radiusMedium),
+        ),
+        child: const Icon(Icons.image_not_supported),
+      );
+    }
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(radiusMedium),
+      child: Image.network(
+        url,
+        width: 100,
+        height: 100,
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stack) => Container(
+          width: 100,
+          height: 100,
+          color: backgroundSecondaryContainer,
+          child: const Icon(Icons.image_not_supported),
+        ),
+      ),
+    );
   }
 
   /// 构建商品信息
@@ -54,10 +79,9 @@ class GoodsListCard extends StatelessWidget {
 
       // 副标题（如果有）
       if (goods.subTitle?.isNotEmpty == true) ...[
-        TDText(
+        Text(
           goods.subTitle!,
-          font: fontBodySmall,
-          textColor: textSecondary,
+          style: fontBodySmall?.copyWith(color: textSecondary),
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
@@ -66,10 +90,9 @@ class GoodsListCard extends StatelessWidget {
 
       [
         _buildPriceInfo(),
-        TDText(
+        Text(
           '已售 ${goods.sold}',
-          font: fontMarkSmall,
-          textColor: textPlaceholder,
+          style: fontMarkSmall?.copyWith(color: textPlaceholder),
         ),
       ].toRowBetween(),
     ].toColumnStart();
@@ -79,11 +102,12 @@ class GoodsListCard extends StatelessWidget {
   Widget _buildTitleWithTags() {
     return [
       // 商品标题
-      TDText(
+      Text(
         goods.title,
-        font: fontTitleMedium,
-        textColor: textPrimary,
-        fontWeight: fontWeightBold,
+        style: fontTitleMedium?.copyWith(
+          color: textPrimary,
+          fontWeight: fontWeightBold,
+        ),
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
       ).expanded(),
@@ -92,11 +116,10 @@ class GoodsListCard extends StatelessWidget {
 
   /// 构建价格信息
   Widget _buildPriceInfo() {
-    return TDText(
-      '¥${(goods.price).toStringAsFixed(2)}',
-      font: fontTitleLarge,
-      textColor: error,
-      fontWeight: fontWeightBold,
+    // 价格为整型时直接展示；若需要两位小数请改为除以100再格式化
+    return Text(
+      '¥${goods.price}',
+      style: fontTitleLarge?.copyWith(color: error, fontWeight: fontWeightBold),
     );
   }
 }

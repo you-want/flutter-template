@@ -1,4 +1,4 @@
-import 'package:flutter_td_getx_template/core/model/entity/goods/goods.dart';
+import 'package:flutter_template/core/model/entity/goods/goods.dart';
 
 import '../../../core/base/base_list/base_list_state.dart';
 

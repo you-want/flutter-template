@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:bot_toast/bot_toast.dart';
 import '../../../../routes/app_pages.dart';
 
 class ExampleDemoView extends StatelessWidget {
@@ -12,19 +12,19 @@ class ExampleDemoView extends StatelessWidget {
       DemoItem(
         title: '登录页',
         description: '手机号+验证码登录示例',
-        icon: TDIcons.user,
+        icon: Icons.login,
         route: Routes.LOGIN,
       ),
       DemoItem(
         title: '我的',
         description: '我的个人中心',
-        icon: TDIcons.assignment_user,
+        icon: Icons.account_circle,
         route: Routes.PROFILE,
       ),
       DemoItem(
         title: '应用更新',
         description: '应用更新说明',
-        icon: TDIcons.arrow_down_circle,
+        icon: Icons.download,
         route: Routes.UPDATE,
       ),
     ];
@@ -42,7 +42,7 @@ class ExampleDemoView extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = demoList[index];
           return GestureDetector(
-            onTap: () => Get.toNamed(item.route),
+            onTap: () => _onTapItem(item.route),
             child: Card(
               elevation: 3,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -50,7 +50,7 @@ class ExampleDemoView extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 16),
                 child: Row(
                   children: [
-                    Icon(item.icon, size: 36, color: TDTheme.of(context).brandNormalColor),
+                    Icon(item.icon, size: 36, color: Theme.of(context).colorScheme.primary),
                     const SizedBox(width: 20),
                     Expanded(
                       child: Column(
@@ -87,3 +87,16 @@ class DemoItem {
     required this.route,
   });
 } 
+
+void _onTapItem(String route) {
+  // 使用本地安全跳转，避免未注册路由导致的异常
+  safeToNamed(route);
+}
+
+void safeToNamed(String route) {
+  try {
+    Get.toNamed(route);
+  } catch (e) {
+    BotToast.showText(text: '演示路由未启用：$route');
+  }
+}

@@ -1,9 +1,8 @@
-# Flutter TDesign Getx Template
+# Flutter Template
 
-> 基于 TDesign + GetX 的 Flutter 项目模板，整合常用功能和开发实践
+> Flutter 项目模板，整合常用功能和开发实践
 
 - [Flutter](https://flutter.dev/)
-- [TDesign](https://tdesign.tencent.com/flutter/overview)
 - [GetX](https://chornthorn.github.io/getx-docs/docs)
 - [DeepWiki](https://deepwiki.com/you-want/flutter-td-getx-template)
 
@@ -14,7 +13,6 @@ FlutterTDGetx Template 是一个 Flutter 项目模板，整合了常用的技术
 ### ✨ 主要特性
 
 - **🎯 常用架构**: GetX 推荐的响应式架构
-- **🎨 UI 组件**: 集成腾讯 TDesign 组件库
 - **🌐 网络请求**: 封装了常用的网络请求功能
 - **📱 屏幕适配**: 内置屏幕适配解决方案
 - **🔧 开发工具**: 集成了代码生成、调试等常用工具
@@ -24,7 +22,6 @@ FlutterTDGetx Template 是一个 Flutter 项目模板，整合了常用的技术
 ### 🛠 技术栈
 
 - **状态管理**: GetX 4.x
-- **UI 框架**: TDesign Flutter
 - **网络请求**: Dio + Retrofit
 - **数据序列化**: son_annotation + json_serializable
 - **屏幕适配**: Flutter ScreenUtil

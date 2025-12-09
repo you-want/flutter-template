@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../core/base/base/base_view.dart';
 import '../../../core/design_system/theme/color.dart';
@@ -61,24 +60,25 @@ class ThemeDemoView extends BaseView<ThemeDemoLogic> {
     return [
           // 标题行
           [
-            Icon(TDIcons.info_circle, color: primary, size: 20),
+            Icon(Icons.info_outline, color: primary, size: 20),
             const SpaceHorizontalSmall(),
-            TDText(
+            Text(
               '主题切换说明',
-              font: fontTitleMedium,
-              textColor: primary,
-              fontWeight: fontWeightBold,
+              style: (fontTitleMedium ?? const TextStyle()).copyWith(
+                color: primary,
+                fontWeight: fontWeightBold,
+              ),
             ),
           ].toRow(),
 
           const SpaceVerticalSmall(),
 
           // 说明文本
-          TDText(
+          Text(
             '点击下方卡片可以切换应用的主题颜色，支持绿色、红色、蓝色和默认主题。主题切换会影响整个应用的配色方案，包括按钮、卡片、文本等所有UI元素。',
-            font: fontBodyMedium,
-            textColor: textSecondary,
-            maxLines: null,
+            style: (fontBodyMedium ?? const TextStyle()).copyWith(
+              color: textSecondary,
+            ),
           ),
         ]
         .toColumnStart()
@@ -93,25 +93,26 @@ class ThemeDemoView extends BaseView<ThemeDemoLogic> {
   /// 构建底部预览卡片
   Widget _buildPreviewCard() {
     return [
-          Icon(TDIcons.palette, color: textPlaceholder, size: 32),
+          Icon(Icons.palette, color: textPlaceholder, size: 32),
 
           const SpaceVerticalSmall(),
 
-          TDText(
+          Text(
             '主题预览',
-            font: fontTitleMedium,
-            textColor: textSecondary,
-            fontWeight: fontWeightBold,
+            style: (fontTitleMedium ?? const TextStyle()).copyWith(
+              color: textSecondary,
+              fontWeight: fontWeightBold,
+            ),
           ),
 
           const SpaceVerticalXSmall(),
 
-          TDText(
+          Text(
             '当前页面展示了应用的主题色效果，切换主题后可以实时看到颜色变化。',
-            font: fontBodySmall,
-            textColor: textPlaceholder,
             textAlign: TextAlign.center,
-            maxLines: null,
+            style: (fontBodySmall ?? const TextStyle()).copyWith(
+              color: textPlaceholder,
+            ),
           ),
         ]
         .toColumnCenter()

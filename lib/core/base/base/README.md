@@ -30,7 +30,7 @@ class MyLogic extends BaseLogic {
 ### base_view.dart
 基础视图类，提供：
 - 页面基础结构定义
-- 导航栏配置（基于 TDesign）
+- 导航栏配置
 - 状态保持支持
 - 底部导航和悬浮按钮支持
 - 继承自 GetView
@@ -89,7 +89,7 @@ class MyView extends BaseView<MyLogic> {
    - 注意状态更新时机
 
 2. 导航栏使用
-   - 使用 TDesign 的导航栏组件
+   - 使用导航栏组件
    - 合理配置导航栏属性
    - 注意返回按钮处理
 

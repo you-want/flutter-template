@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../util/common/common_util.dart';
 import '../../util/size/size_util.dart';
@@ -69,34 +68,33 @@ abstract class BaseDialog extends StatelessWidget {
     final maxHeight = screenHeight - statusBarHeight - safeAreaHeight;
 
     Widget dialogContent = [
-          TDNavBar(
-            title: title,
-            screenAdaptation: false,
-            useDefaultBack: false,
+          // 顶部标题与关闭按钮（Material 实现）
+          SizedBox(
             height: 56,
-            belowTitleWidget: const TDDivider(),
-            rightBarItems:
-                close
-                    ? [
-                      TDNavBarItem(
-                        iconWidget: Icon(
-                              Icons.close,
-                              size: 28,
-                              // color: ConstantTheme.grayOpacity4,
-                            )
-                            .ripple()
-                            .clipRRect(all: 4)
-                            .gestures(
-                              onTap: () => Navigator.of(Get.context!).pop(),
-                            ),
-                      ),
-                    ]
-                    : null,
+            child: Stack(
+              children: [
+                Center(
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ),
+                if (close)
+                  Positioned(
+                    right: 8,
+                    top: 0,
+                    bottom: 0,
+                    child: IconButton(
+                      icon: const Icon(Icons.close, size: 28),
+                      onPressed: () => Navigator.of(Get.context!).pop(),
+                    ),
+                  ),
+              ],
+            ),
           ),
+          if (line) const Divider(height: 1),
           body()
               .toColumn(
-                // crossAxisAlignment: Constant.crossStart,
-                // mainAxisAlignment: Constant.mainStart,
               )
               .padding(all: 16),
           if (CommonUtil.isNotNull(bottom()))

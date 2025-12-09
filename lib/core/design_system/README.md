@@ -1,6 +1,6 @@
 # 设计系统 (Design System)
 
-应用的设计系统，提供统一的设计规范、主题系统和组件库，确保整个应用的视觉一致性和用户体验。基于TDesign Flutter和Styled Widget构建。
+应用的设计系统，提供统一的设计规范、主题系统和组件库，确保整个应用的视觉一致性和用户体验。基于 Flutter Material 3 的 `ColorScheme` 与 Styled Widget 构建。
 
 ## 📋 目录
 
@@ -18,75 +18,76 @@
 
 ## 🎯 概述
 
-本设计系统基于TDesign Flutter和Styled Widget构建，提供：
+本设计系统基于 Flutter 的主题系统与 Styled Widget 构建，提供：
 - 📐 **统一的设计规范**：颜色、字体、间距、圆角等
-- 🎨 **深浅主题支持**：自动适配TDesign主题
+- 🎨 **深浅主题支持**：遵循 Material 3 的 `ColorScheme`
 - 🧩 **组件化设计**：预设常用布局组件
-- 🔧 **易于使用**：简化的API设计
+- 🔧 **易于使用**：简化的 API 设计
 
 ## 🎨 颜色系统
 
-颜色系统基于TDesign的颜色规范，定义在`color.dart`中，提供了一系列语义化的颜色变量。
+颜色系统基于 Material 3 的 `ColorScheme`，定义在 `color.dart` 中，提供了一系列语义化的颜色变量。
 
 ### 主色调
 ```dart
 // 品牌主色，用于主要按钮、主要图标、重点文字等
-Color get primary => TDTheme.of(_context).brandColor7;
+Color get primary => Theme.of(Get.context!).colorScheme.primary;
 
-// 品牌浅色，用于主色浅色背景、hover状态等
-Color get primaryLight => TDTheme.of(_context).brandColor1;
+// 品牌浅色，用于主色浅色背景、hover 状态等
+Color get primaryLight => Theme.of(Get.context!).colorScheme.primaryContainer;
 
 // 品牌深色，用于主色深色背景、点击状态等
-Color get primaryDark => TDTheme.of(_context).brandColor8;
+Color get primaryDark => Theme.of(Get.context!).colorScheme.primary;
 ```
 
 ### 功能色
 ```dart
 // 成功色，用于成功状态、完成状态的按钮、图标和文字
-Color get success => TDTheme.of(_context).successColor5;
+Color get success => Theme.of(Get.context!).colorScheme.secondary;
 
 // 警告色，用于警告状态、需要注意的按钮、图标和文字
-Color get warning => TDTheme.of(_context).warningColor5;
+Color get warning => Theme.of(Get.context!).colorScheme.tertiary;
 
 // 错误色，用于错误状态、失败状态的按钮、图标和文字
-Color get error => TDTheme.of(_context).errorColor6;
+Color get error => Theme.of(Get.context!).colorScheme.error;
 ```
 
 ### 文字颜色
 ```dart
 // 主要文本颜色，用于重要级文字信息、标题
-Color get textPrimary => TDTheme.of(_context).fontGyColor1;
+Color get textPrimary => Theme.of(Get.context!).colorScheme.onSurface;
 
 // 次要文本颜色，用于次级文字信息
-Color get textSecondary => TDTheme.of(_context).fontGyColor2;
+Color get textSecondary => Theme.of(Get.context!).colorScheme.onSurfaceVariant;
 
 // 占位文本颜色，用于占位符、输入框提示等
-Color get textPlaceholder => TDTheme.of(_context).fontGyColor3;
+Color get textPlaceholder => Theme.of(Get.context!).colorScheme.onSurfaceVariant;
 ```
 
 ### 背景色
 ```dart
-// 页面整体背景色(白色)
-Color get backgroundPage => TDTheme.of(_context).grayColor2;
+// 页面整体背景色
+Color get backgroundPage => Theme.of(Get.context!).colorScheme.background;
 
 // 一级容器背景色，用于卡片、弹窗等容器背景
-Color get backgroundContainer => TDTheme.of(_context).whiteColor1;
+Color get backgroundContainer => Theme.of(Get.context!).colorScheme.surface;
 
 // 组件背景色，用于默认状态的组件背景
-Color get backgroundComponent => TDTheme.of(_context).grayColor3;
+Color get backgroundComponent => Theme.of(Get.context!).colorScheme.surfaceVariant;
 ```
 
 ### 使用方式
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:your_app/core/design_system/theme/color.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
 
-// 使用颜色
-TDText(
+// 使用颜色与字体
+Text(
   "标题文本",
-  textColor: textPrimary,
+  style: (fontTitleLarge ?? const TextStyle()).copyWith(color: textPrimary),
 )
   .padding(all: spacePaddingMedium)
   .backgroundColor(backgroundContainer)
@@ -121,24 +122,17 @@ FontWeight get fontWeightBold => FontWeight.w600;
 ### 使用示例
 ```dart
 import 'package:flutter/material.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/color.dart';
 
-// 使用TDText
-TDText(
+// 使用 Text + 设计系统字体
+Text(
   "标题文本",
-  font: fontTitleLarge,
-  fontWeight: fontWeightBold,
-  textColor: textPrimary,
+  style: (fontTitleLarge ?? const TextStyle()).copyWith(
+    fontWeight: fontWeightBold,
+    color: textPrimary,
+  ),
 )
-
-// 链式调用风格
-TDText(
-  "标题文本",
-  font: fontTitleLarge,
-)
-  .textColor(textPrimary)
-  .fontWeight(fontWeightBold)
 ```
 
 ## 📏 尺寸间距
@@ -215,11 +209,10 @@ EdgeInsets get listItemPadding => EdgeInsets.symmetric(
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:your_app/core/design_system/theme/size.dart';
 
 // 使用间距 - 使用 styled_widget
-TDText("内容")
+const Text("内容")
   .padding(all: spacePaddingLarge)
   .padding(
     vertical: spaceVerticalMedium,
@@ -228,8 +221,8 @@ TDText("内容")
 
 // 使用分隔间距 - 使用 column.dart
 [
-  TDText("第一行", font: fontBodyLarge),
-  TDText("第二行", font: fontBodyLarge),
+  const Text("第一行"),
+  const Text("第二行"),
 ].toColumnStart(spacing: spaceVerticalMedium)
 ```
 
@@ -271,81 +264,78 @@ RoundedRectangleBorder get circleShape =>
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:your_app/core/design_system/theme/color.dart';
 import 'package:your_app/core/design_system/theme/shape.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
 
 // 使用圆角值 - 使用 styled_widget
-TDText("圆角容器")
+Text("圆角容器", style: fontBodyLarge)
   .padding(all: spacePaddingMedium)
   .backgroundColor(backgroundContainer)
-  .clipRRect(all: radiusDefault)
+  .clipRRect(all: radiusDefault);
 
 // 使用形状对象 - 使用 styled_widget 的 card 方法
-TDText("圆角卡片")
+Text("圆角卡片", style: fontBodyLarge)
   .padding(all: spacePaddingMedium)
   .card(
     elevation: 2,
     shape: defaultRoundedShape,
     color: backgroundContainer,
-  )
+  );
 ```
 
 ## 🌥️ 阴影效果
 
-阴影效果定义在`shadows.dart`中，提供了一系列预设的阴影样式。
+阴影效果定义在`shadows.dart`中，提供了一系列预设的阴影样式（基于 Material 3 的色板与阴影约定）。
 
 ### 基础阴影
 ```dart
 // 基础投影，适用于卡片、按钮等基础元素
-List<BoxShadow>? get shadowBase => TDTheme.of(_context).shadowsBase;
+List<BoxShadow> get shadowBase;
 
 // 中层投影，适用于对话框、弹出菜单等中层元素
-List<BoxShadow>? get shadowMiddle => TDTheme.of(_context).shadowsMiddle;
+List<BoxShadow> get shadowMiddle;
 
 // 上层投影，适用于抽屉、模态框等上层元素
-List<BoxShadow>? get shadowTop => TDTheme.of(_context).shadowsTop;
+List<BoxShadow> get shadowTop;
 ```
 
 ### 阴影装饰
 ```dart
 // 卡片阴影，用于卡片、面板等元素
-BoxDecoration get cardShadow => BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.circular(TDTheme.of(_context).radiusDefault),
-  boxShadow: shadowBase,
-);
+BoxDecoration get cardShadow;
 
 // 弹出层阴影，用于弹出菜单、下拉菜单等元素
-BoxDecoration get popupShadow => BoxDecoration(
-  color: Colors.white,
-  borderRadius: BorderRadius.circular(TDTheme.of(_context).radiusLarge),
-  boxShadow: shadowMiddle,
-);
+BoxDecoration get popupShadow;
 ```
 
 ### 使用方式
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:your_app/core/design_system/theme/color.dart';
+import 'package:your_app/core/design_system/theme/shape.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
 import 'package:your_app/core/design_system/theme/shadows.dart';
 
 // 使用阴影效果 - 使用 styled_widget
-TDText("带阴影的卡片")
+Text("带阴影的卡片", style: fontBodyLarge)
   .padding(all: spacePaddingMedium)
   .backgroundColor(backgroundContainer)
   .clipRRect(all: radiusDefault)
-  .boxShadow(shadowBase)
+  .boxShadow(shadowBase);
 
 // 使用 styled_widget 的 elevation 方法
-TDText("带海拔的卡片")
+Text("带海拔的卡片", style: fontBodyLarge)
   .padding(all: spacePaddingMedium)
   .backgroundColor(backgroundContainer)
   .clipRRect(all: radiusDefault)
   .elevation(
     2,
     borderRadius: BorderRadius.circular(radiusDefault),
-  )
+  );
 ```
 
 ## 📊 布局组件
@@ -359,72 +349,73 @@ TDText("带海拔的卡片")
 #### 基础用法
 ```dart
 import 'package:flutter/material.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
 import 'package:your_app/core/design_system/widgets/column.dart';
 
 // 创建居中对齐的Column
 [
-  TDText("第一行", font: fontBodyLarge),
-  TDText("第二行", font: fontBodyLarge),
-  TDText("第三行", font: fontBodyLarge),
-].toColumnCenter(spacing: spaceVerticalSmall)
+  Text("第一行", style: fontBodyLarge),
+  Text("第二行", style: fontBodyLarge),
+  Text("第三行", style: fontBodyLarge),
+].toColumnCenter(spacing: spaceVerticalSmall);
 
 // 创建靠左对齐的Column
 [
-  TDText("左对齐第一行", font: fontBodyLarge),
-  TDText("左对齐第二行", font: fontBodyLarge),
-].toColumnStart(spacing: spaceVerticalMedium)
+  Text("左对齐第一行", style: fontBodyLarge),
+  Text("左对齐第二行", style: fontBodyLarge),
+].toColumnStart(spacing: spaceVerticalMedium);
 ```
 
 #### 对齐方式
 ```dart
 // 靠右对齐
 [
-  TDText("右对齐文本1", font: fontBodyLarge),
-  TDText("右对齐文本2", font: fontBodyLarge),
-].toColumnEnd()
+  Text("右对齐文本1", style: fontBodyLarge),
+  Text("右对齐文本2", style: fontBodyLarge),
+].toColumnEnd();
 
 // 两端对齐
 [
-  TDText("顶部文本", font: fontBodyLarge),
-  TDText("底部文本", font: fontBodyLarge),
-].toColumnBetween()
+  Text("顶部文本", style: fontBodyLarge),
+  Text("底部文本", style: fontBodyLarge),
+].toColumnBetween();
 
 // 均匀分布
 [
-  TDText("文本1", font: fontBodyLarge),
-  TDText("文本2", font: fontBodyLarge),
-  TDText("文本3", font: fontBodyLarge),
-].toColumnEvenly()
+  Text("文本1", style: fontBodyLarge),
+  Text("文本2", style: fontBodyLarge),
+  Text("文本3", style: fontBodyLarge),
+].toColumnEvenly();
 
 // 拉伸填充
 [
-  TDText("拉伸内容1", font: fontBodyLarge)
+  Text("拉伸内容1", style: fontBodyLarge)
     .backgroundColor(Colors.blue)
     .padding(all: spacePaddingMedium),
     
-  TDText("拉伸内容2", font: fontBodyLarge)
+  Text("拉伸内容2", style: fontBodyLarge)
     .backgroundColor(Colors.green)
     .padding(all: spacePaddingMedium),
-].toColumnStretch()
+].toColumnStretch();
 ```
 
 #### 间距设置
 ```dart
 // 使用固定间距
 [
-  TDText("带间距的文本1", font: fontBodyLarge),
-  TDText("带间距的文本2", font: fontBodyLarge),
-  TDText("带间距的文本3", font: fontBodyLarge),
-].toColumnCenter(spacing: spaceVerticalLarge)
+  Text("带间距的文本1", style: fontBodyLarge),
+  Text("带间距的文本2", style: fontBodyLarge),
+  Text("带间距的文本3", style: fontBodyLarge),
+].toColumnCenter(spacing: spaceVerticalLarge);
 
 // 使用自定义分隔Widget
 [
-  TDText("带分隔线的文本1", font: fontBodyLarge),
-  TDText("带分隔线的文本2", font: fontBodyLarge),
+  Text("带分隔线的文本1", style: fontBodyLarge),
+  Text("带分隔线的文本2", style: fontBodyLarge),
 ].toColumnCenter(
   separator: Divider(height: 1, color: Colors.grey),
-)
+);
 ```
 
 ### Row 组件
@@ -434,53 +425,54 @@ import 'package:your_app/core/design_system/widgets/column.dart';
 #### 基础用法
 ```dart
 import 'package:flutter/material.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
 import 'package:your_app/core/design_system/widgets/row.dart';
 
 // 创建居中对齐的Row
 [
   Icon(Icons.star),
-  TDText("评分", font: fontBodyLarge),
-].toRowCenter(spacing: spaceHorizontalSmall)
+  Text("评分", style: fontBodyLarge),
+].toRowCenter(spacing: spaceHorizontalSmall);
 
 // 创建靠上对齐的Row
 [
   Icon(Icons.person, size: 32.0),
-  TDText("用户名", font: fontBodyLarge),
-].toRowTop(spacing: spaceHorizontalSmall)
+  Text("用户名", style: fontBodyLarge),
+].toRowTop(spacing: spaceHorizontalSmall);
 ```
 
 #### 对齐方式
 ```dart
 // 靠下对齐
 [
-  TDText("底部对齐文本", font: fontBodyLarge),
+  Text("底部对齐文本", style: fontBodyLarge),
   Icon(Icons.arrow_downward, size: 24.0),
-].toRowBottom()
+].toRowBottom();
 
 // 两端对齐
 [
-  TDText("左侧文本", font: fontBodyLarge),
-  TDText("右侧文本", font: fontBodyLarge),
-].toRowBetween()
+  Text("左侧文本", style: fontBodyLarge),
+  Text("右侧文本", style: fontBodyLarge),
+].toRowBetween();
 
 // 均匀分布
 [
   Icon(Icons.home),
   Icon(Icons.search),
   Icon(Icons.person),
-].toRowEvenly()
+].toRowEvenly();
 
 // 拉伸填充
 [
-  TDText("拉伸内容1", font: fontBodyLarge)
+  Text("拉伸内容1", style: fontBodyLarge)
     .backgroundColor(Colors.red)
     .padding(all: spacePaddingMedium),
     
-  TDText("拉伸内容2", font: fontBodyLarge)
+  Text("拉伸内容2", style: fontBodyLarge)
     .backgroundColor(Colors.yellow)
     .padding(all: spacePaddingMedium),
-].toRowStretch()
+].toRowStretch();
 ```
 
 #### 间距设置
@@ -490,19 +482,19 @@ import 'package:your_app/core/design_system/widgets/row.dart';
   Icon(Icons.star),
   Icon(Icons.star),
   Icon(Icons.star),
-].toRowCenter(spacing: spaceHorizontalXSmall)
+].toRowCenter(spacing: spaceHorizontalXSmall);
 
 // 使用自定义分隔Widget
 [
-  TDText("标签1", font: fontBodyLarge),
-  TDText("标签2", font: fontBodyLarge),
+  Text("标签1", style: fontBodyLarge),
+  Text("标签2", style: fontBodyLarge),
 ].toRowCenter(
   separator: Container(
     width: 1,
     height: 16,
     color: Colors.grey,
   ),
-)
+);
 ```
 
 ### Space 组件
@@ -513,49 +505,53 @@ import 'package:your_app/core/design_system/widgets/row.dart';
 
 ```dart
 import 'package:flutter/material.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
 import 'package:your_app/core/design_system/widgets/space.dart';
 
 // 方式一：使用预设垂直间距组件
 [
-  TDText("第一行文本", font: fontBodyLarge),
+  Text("第一行文本", style: fontBodyLarge),
   const SpaceVerticalMedium(), // 12dp的垂直间距
-  TDText("第二行文本", font: fontBodyLarge),
+  Text("第二行文本", style: fontBodyLarge),
   const SpaceVerticalLarge(), // 16dp的垂直间距
-  TDText("第三行文本", font: fontBodyLarge),
-].toColumnStart()
+  Text("第三行文本", style: fontBodyLarge),
+].toColumnStart();
 
 // 方式二：使用spacing参数（当所有间距相同时更方便）
 [
-  TDText("第一行文本", font: fontBodyLarge),
-  TDText("第二行文本", font: fontBodyLarge),
-  TDText("第三行文本", font: fontBodyLarge),
-].toColumnStart(spacing: spaceVerticalMedium) // 所有元素之间都是12dp的间距
+  Text("第一行文本", style: fontBodyLarge),
+  Text("第二行文本", style: fontBodyLarge),
+  Text("第三行文本", style: fontBodyLarge),
+].toColumnStart(spacing: spaceVerticalMedium); // 所有元素之间都是12dp的间距
 ```
 
 #### 水平间距组件
 
 ```dart
 import 'package:flutter/material.dart';
+import 'package:your_app/core/design_system/theme/type.dart';
+import 'package:your_app/core/design_system/theme/size.dart';
 import 'package:your_app/core/design_system/widgets/space.dart';
 
 // 方式一：使用预设水平间距组件（不同间距混用）
 [
   Icon(Icons.star),
   const SpaceHorizontalSmall(), // 8dp的水平间距
-  TDText("评分", font: fontBodyLarge),
+  Text("评分", style: fontBodyLarge),
   const SpaceHorizontalLarge(), // 16dp的水平间距
   Icon(Icons.favorite),
   const SpaceHorizontalSmall(), // 8dp的水平间距
-  TDText("收藏", font: fontBodyLarge),
-].toRowCenter()
+  Text("收藏", style: fontBodyLarge),
+].toRowCenter();
 
 // 方式二：使用spacing参数（当所有间距相同时更方便）
 [
   Icon(Icons.star),
-  TDText("评分", font: fontBodyLarge),
+  Text("评分", style: fontBodyLarge),
   Icon(Icons.favorite),
-  TDText("收藏", font: fontBodyLarge),
-].toRowCenter(spacing: spaceHorizontalSmall) // 所有元素之间都是8dp的间距
+  Text("收藏", style: fontBodyLarge),
+].toRowCenter(spacing: spaceHorizontalSmall); // 所有元素之间都是8dp的间距
 ```
 
 ## 🚀 使用示例
@@ -564,7 +560,6 @@ import 'package:your_app/core/design_system/widgets/space.dart';
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:your_app/core/design_system/theme/color.dart';
 import 'package:your_app/core/design_system/theme/shape.dart';
 import 'package:your_app/core/design_system/theme/size.dart';
@@ -598,23 +593,20 @@ class ProductCard extends StatelessWidget {
       const SpaceVerticalMedium(),
       
       // 商品标题
-      TDText(
+      Text(
         title,
-        font: fontBodyLarge,
-        textColor: textPrimary,
         maxLines: 2,
         overflow: TextOverflow.ellipsis,
+        style: fontBodyLarge?.copyWith(color: textPrimary),
       ),
       
       const SpaceVerticalSmall(),
       
       // 价格和购买按钮
       [
-        TDText(
+        Text(
           "¥${price.toStringAsFixed(2)}",
-          font: fontTitleMedium,
-          textColor: error,
-          fontWeight: fontWeightMedium,
+          style: fontTitleMedium?.copyWith(color: error, fontWeight: fontWeightMedium),
         ),
         
         Icon(
@@ -641,7 +633,6 @@ class ProductCard extends StatelessWidget {
 ```dart
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 import 'package:your_app/core/design_system/theme/color.dart';
 import 'package:your_app/core/design_system/theme/shape.dart';
 import 'package:your_app/core/design_system/theme/size.dart';
@@ -672,28 +663,23 @@ class UserInfoCard extends StatelessWidget {
       
       // 用户信息
       [
-        TDText(
+        Text(
           username,
-          font: fontTitleLarge,
-          textColor: textPrimary,
-          fontWeight: fontWeightBold,
+          style: fontTitleLarge?.copyWith(color: textPrimary, fontWeight: fontWeightBold),
         ),
         
         const SpaceVerticalXSmall(),
         
-        TDText(
+        Text(
           "等级 $level",
-          font: fontBodySmall,
-          textColor: textSecondary,
+          style: fontBodySmall?.copyWith(color: textSecondary),
         ),
       ].toColumnStart().expanded(),
       
-      // 右侧按钮
-      TDButton(
-        text: "查看",
-        theme: TDButtonTheme.Primary,
-        type: TDButtonType.Outline,
-        size: TDButtonSize.Small,
+      // 右侧按钮（使用 Material 按钮）
+      OutlinedButton(
+        onPressed: () {},
+        child: Text("查看", style: fontBodyMedium),
       ),
     ]
     .toRowCenter()
@@ -714,35 +700,33 @@ class UserInfoCard extends StatelessWidget {
 ```dart
 // ✅ 推荐：使用设计系统组件
 [
-  TDText("第一项", font: fontBodyLarge),
-  TDText("第二项", font: fontBodyLarge),
-  TDText("第三项", font: fontBodyLarge),
-].toColumnCenter(spacing: spaceVerticalMedium)
+  Text("第一项", style: fontBodyLarge),
+  Text("第二项", style: fontBodyLarge),
+  Text("第三项", style: fontBodyLarge),
+].toColumnCenter(spacing: spaceVerticalMedium);
 
 // ❌ 不推荐：直接使用SizedBox而不是Space组件
 [
-  TDText("第一项", font: fontBodyLarge),
+  Text("第一项", style: fontBodyLarge),
   SizedBox(height: spaceVerticalMedium), // 应使用 const SpaceVerticalMedium()
-  TDText("第二项", font: fontBodyLarge),
+  Text("第二项", style: fontBodyLarge),
   SizedBox(height: spaceVerticalMedium), // 应使用 const SpaceVerticalMedium()
-  TDText("第三项", font: fontBodyLarge),
-].toColumnCenter()
+  Text("第三项", style: fontBodyLarge),
+].toColumnCenter();
 ```
 
 ### 2. 使用主题颜色
 ```dart
 // ✅ 推荐：使用主题颜色
-TDText(
+Text(
   "标题文本",
-  font: fontTitleLarge,
-  textColor: textPrimary,
+  style: fontTitleLarge?.copyWith(color: textPrimary),
 )
 
 // ❌ 不推荐：硬编码颜色
-TDText(
+Text(
   "标题文本",
-  font: fontTitleLarge,
-  textColor: Color(0xFF181818),
+  style: fontTitleLarge?.copyWith(color: const Color(0xFF181818)),
 )
 ```
 
@@ -761,37 +745,35 @@ Styled.widget()
 ```dart
 // ✅ 推荐：元素间相同间距时使用spacing参数
 [
-  TDText("第一项", font: fontBodyLarge),
-  TDText("第二项", font: fontBodyLarge),
-  TDText("第三项", font: fontBodyLarge),
-].toColumnCenter(spacing: spaceVerticalMedium)
+  Text("第一项", style: fontBodyLarge),
+  Text("第二项", style: fontBodyLarge),
+  Text("第三项", style: fontBodyLarge),
+].toColumnCenter(spacing: spaceVerticalMedium);
 
 // ❌ 不推荐：手动添加间距组件
 [
-  TDText("第一项", font: fontBodyLarge),
+  Text("第一项", style: fontBodyLarge),
   const SpaceVerticalMedium(),
-  TDText("第二项", font: fontBodyLarge),
+  Text("第二项", style: fontBodyLarge),
   const SpaceVerticalMedium(),
-  TDText("第三项", font: fontBodyLarge),
-].toColumnCenter()
+  Text("第三项", style: fontBodyLarge),
+].toColumnCenter();
 ```
 
-### 5. 组合使用Styled Widget和TDesign
+### 5. 组合使用 Styled Widget 与设计系统
 ```dart
 // ✅ 推荐：组合使用
-TDText(
+Text(
   "文本内容",
-  font: fontBodyLarge,
-  textColor: textPrimary,
+  style: fontBodyLarge?.copyWith(color: textPrimary),
 )
   .padding(all: spacePaddingMedium)
   .backgroundColor(backgroundContainer)
   .clipRRect(all: radiusDefault)
-  .gestures(onTap: () => print("点击"))
+  .gestures(onTap: () => debugPrint("点击"));
 ```
 
 ## 📚 参考资源
 
-- [TDesign Flutter 官方文档](https://tdesign.tencent.com/flutter/getting-started)
 - [Styled Widget 文档](https://github.com/ReinBentdal/styled_widget)
-- [Flutter 官方文档](https://flutter.dev/docs) 
+- [Flutter 官方文档](https://flutter.dev/docs)

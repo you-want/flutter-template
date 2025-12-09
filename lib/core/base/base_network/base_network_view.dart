@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/design_system/widgets/column.dart';
 
 import '../../../res/icon_res.dart';
 import '../base/base_view.dart';
@@ -84,24 +84,41 @@ abstract class BaseNetworkView<T extends BaseNetworkLogic> extends BaseView<T> {
 
   /// 缺省页视图内容
   Widget empty(String emptyText, String imgPath) {
-    return TDEmpty(
-      onTapEvent: () {
-        controller.loadData();
-        controller.setStatusLoad();
-      },
-      operationText: '重新加载',
-      type: TDEmptyType.operation,
-      emptyText: emptyText,
-      image: SvgPicture.asset(imgPath).constrained(height: 220, width: 200),
-    );
+    return [
+      SvgPicture.asset(imgPath).constrained(height: 220, width: 200),
+      const SizedBox(height: 16),
+      Text(
+        emptyText,
+        style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+          color: Theme.of(Get.context!).colorScheme.onSurface,
+        ),
+        textAlign: TextAlign.center,
+      ),
+      const SizedBox(height: 12),
+      FilledButton.icon(
+        onPressed: () {
+          controller.loadData();
+          controller.setStatusLoad();
+        },
+        icon: const Icon(Icons.refresh),
+        label: const Text('重新加载'),
+      ),
+    ]
+        .toColumnCenter()
+        .center();
   }
 
   /// 加载视图 子类可重写
   Widget loadWidget() {
-    return const TDLoading(
-      text: '加载中…',
-      size: TDLoadingSize.large,
-      icon: TDLoadingIcon.circle,
-    ).center();
+    return [
+      CircularProgressIndicator(
+        color: Theme.of(Get.context!).colorScheme.primary,
+      ),
+      const SizedBox(height: 12),
+      Text(
+        '加载中…',
+        style: Theme.of(Get.context!).textTheme.bodyMedium,
+      ),
+    ].toColumnCenter().center();
   }
 }

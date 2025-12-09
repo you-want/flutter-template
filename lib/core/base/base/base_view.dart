@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../design_system/widgets/keep_alive_wrapper.dart';
 
@@ -20,7 +19,7 @@ abstract class BaseView<T> extends GetView<T> {
   final Widget? navBottomWidget = null;
 
   /// 设置右边按钮数组
-  final List<TDNavBarItem>? rightBarItems = null;
+  final List<Widget>? rightBarItems = null;
 
   /// 是否隐藏导航栏
   final bool isHiddenNav = false;
@@ -43,19 +42,21 @@ abstract class BaseView<T> extends GetView<T> {
   /// 导航栏 子类可根据需求重写
   PreferredSizeWidget? head() {
     if (isHiddenNav) return null;
-    return TDNavBar(
-      leftBarItems:
-          navBackBtn
-              ? useDefaultBack
-                  ? [TDNavBarItem(iconWidget: const BackButton())]
-                  : null
-              : null,
-      padding: EdgeInsets.zero,
-      title: navTitle,
-      height: navHeight,
-      useDefaultBack: false,
-      rightBarItems: rightBarItems,
-      belowTitleWidget: navBottomWidget,
+    return AppBar(
+      leading: navBackBtn
+          ? (useDefaultBack ? const BackButton() : null)
+          : null,
+      title: navTitle != null ? Text(navTitle!) : null,
+      toolbarHeight: navHeight,
+      automaticallyImplyLeading: false,
+      centerTitle: true,
+      actions: rightBarItems,
+      bottom: navBottomWidget == null
+          ? null
+          : PreferredSize(
+              preferredSize: Size.fromHeight(navHeight * 0.4),
+              child: navBottomWidget!,
+            ),
     );
   }
 

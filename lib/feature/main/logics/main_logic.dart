@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_td_getx_template/core/base/base/base_logic.dart';
+import 'package:flutter_template/core/base/base/base_logic.dart';
 
 import '../states/main_state.dart';
 import '../views/base_demo_view.dart';
 import '../views/network_demo_view.dart';
-import '../views/theme_demo_view.dart';
 import '../views/utils_demo_view.dart';
+import '../views/theme_demo_view.dart';
 import '../views/example_demo_view.dart';
 
 class MainLogic extends BaseLogic {
   final MainState mainState = MainState();
 
   /// 页面列表
-  final List<Widget> pageList = [
-    const BaseDemoView(),
-    const NetworkDemoView(),
-    const UtilsDemoView(),
-    const ThemeDemoView(),
-    const ExampleDemoView(),
+  final List<Widget> pageList = const [
+    BaseDemoView(),
+    NetworkDemoView(),
+    UtilsDemoView(),
+    ThemeDemoView(),
+    ExampleDemoView(),
   ];
 
   @override
