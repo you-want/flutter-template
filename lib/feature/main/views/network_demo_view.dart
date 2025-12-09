@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:flutter_td_getx_template/core/base/base/base_view.dart';
-import 'package:flutter_td_getx_template/core/design_system/widgets/column.dart';
+import 'package:flutter_template/core/base/base/base_view.dart';
+import 'package:flutter_template/core/design_system/widgets/column.dart';
 
 import '../../../core/design_system/theme/color.dart';
 import '../../../core/design_system/theme/size.dart';

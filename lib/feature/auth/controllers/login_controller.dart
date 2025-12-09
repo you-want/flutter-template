@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_td_getx_template/core/base/base/base_logic.dart';
-import 'package:flutter_td_getx_template/core/network/service/auth/auth_api.dart';
-import 'package:flutter_td_getx_template/core/model/request/send_sms_request.dart';
-import 'package:flutter_td_getx_template/core/model/request/sms_login_request.dart';
+import 'package:flutter_template/core/base/base/base_logic.dart';
+import 'package:flutter_template/core/network/service/auth/auth_api.dart';
+import 'package:flutter_template/core/model/request/send_sms_request.dart';
+import 'package:flutter_template/core/model/request/sms_login_request.dart';
 
 class LoginController extends BaseLogic {
   final AuthApi _authApi = Get.find<AuthApi>();

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:flutter_td_getx_template/core/design_system/widgets/column.dart';
-import 'package:flutter_td_getx_template/core/design_system/widgets/row.dart';
-import 'package:flutter_td_getx_template/core/extensions/interaction_extensions.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/design_system/widgets/column.dart';
+import 'package:flutter_template/core/design_system/widgets/row.dart';
+import 'package:flutter_template/core/extensions/interaction_extensions.dart';
 
 import '../../../core/design_system/theme/color.dart';
 import '../../../core/design_system/theme/shape.dart';
@@ -50,26 +49,28 @@ class DemoCard extends StatelessWidget {
           // 中间内容区域
           [
             // 标题
-            TDText(
+            Text(
               title,
-              font: fontTitleMedium,
-              textColor: textPrimary,
-              fontWeight: fontWeightBold,
+              style: (fontTitleMedium ?? const TextStyle()).copyWith(
+                color: textPrimary,
+                fontWeight: fontWeightBold,
+              ),
             ),
 
             // 描述
-            TDText(
+            Text(
               description,
-              font: fontBodyMedium,
-              textColor: textSecondary,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
+              style: (fontBodyMedium ?? const TextStyle()).copyWith(
+                color: textSecondary,
+              ),
             ),
           ].toColumnStart(spacing: spaceVerticalXSmall).expanded(),
 
           // 右侧内容（可自定义）
           trailing ??
-              Icon(TDIcons.chevron_right, color: textPlaceholder, size: 20),
+              Icon(Icons.chevron_right, color: textPlaceholder, size: 20),
         ]
         .toRowCenter(spacing: spaceHorizontalMedium)
         .padding(all: spacePaddingLarge)

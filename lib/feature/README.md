@@ -46,8 +46,11 @@ feature/
 ### 3. 代码组织规范
 ```dart
 // view 示例
+import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_td_getx_template/core/base/base/base_view.dart';
+import 'package:flutter_td_getx_template/core/design_system/theme/type.dart';
+import 'package:flutter_td_getx_template/core/design_system/theme/color.dart';
 
 class MeView extends BaseView<MeLogic> {
   const MeView({super.key});
@@ -56,7 +59,10 @@ class MeView extends BaseView<MeLogic> {
   String? get navTitle => '我的';
 
   @override
-  Widget body() => TDText('我的页面', font: fontBodyExtraLarge).center();
+  Widget body() => Text(
+        '我的页面',
+        style: (fontBodyLarge ?? const TextStyle()).copyWith(color: textPrimary),
+      ).center();
 }
 
 // logic 示例

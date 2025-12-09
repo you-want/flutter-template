@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 import '../../../core/base/base/base_view.dart';
 import '../../../core/design_system/theme/color.dart';
@@ -17,102 +16,109 @@ class BaseDemoView extends BaseView<BaseDemoLogic> {
   String? get navTitle => 'Base 示例';
 
   @override
-  List<TDNavBarItem>? get rightBarItems => [
-    TDNavBarItem(
-      icon: TDIcons.notification,
-      iconSize: 20,
-      padding: EdgeInsets.only(right: spaceHorizontalXLarge),
-    ),
-    TDNavBarItem(
-      icon: TDIcons.logo_github,
-      iconSize: 20,
-      padding: EdgeInsets.only(right: spaceHorizontalLarge),
-    ),
-  ];
+  List<Widget>? get rightBarItems => [
+        Padding(
+          padding: EdgeInsets.only(right: spaceHorizontalXLarge),
+          child: IconButton(
+            icon: const Icon(Icons.notifications, size: 20),
+            onPressed: () {},
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: spaceHorizontalLarge),
+          child: IconButton(
+            icon: const Icon(Icons.code, size: 20),
+            onPressed: () {},
+          ),
+        ),
+      ];
 
   @override
-  Widget? get navBottomWidget => TDDropdownMenu(
-    direction: TDDropdownMenuDirection.down,
-    items: [
-      TDDropdownItem(
-        options: [
-          TDDropdownItemOption(label: '全部产品', value: 'all', selected: true),
-          TDDropdownItemOption(label: '最新产品', value: 'new'),
-          TDDropdownItemOption(label: '最火产品', value: 'hot'),
-        ],
-      ),
-      TDDropdownItem(
-        options: [
-          TDDropdownItemOption(label: '默认排序', value: 'default', selected: true),
-          TDDropdownItemOption(label: '价格从高到低', value: 'price'),
-        ],
-      ),
-    ],
-  );
+  Widget? get navBottomWidget => Container(
+        padding: EdgeInsets.symmetric(horizontal: spaceHorizontalLarge),
+        height: navHeight * 0.4,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropdownButton<String>(
+              value: 'all',
+              underline: const SizedBox.shrink(),
+              items: const [
+                DropdownMenuItem(value: 'all', child: Text('全部产品')),
+                DropdownMenuItem(value: 'new', child: Text('最新产品')),
+                DropdownMenuItem(value: 'hot', child: Text('最火产品')),
+              ],
+              onChanged: (v) {},
+            ),
+            const SizedBox(width: 24),
+            DropdownButton<String>(
+              value: 'default',
+              underline: const SizedBox.shrink(),
+              items: const [
+                DropdownMenuItem(value: 'default', child: Text('默认排序')),
+                DropdownMenuItem(value: 'price', child: Text('价格从高到低')),
+              ],
+              onChanged: (v) {},
+            ),
+          ],
+        ),
+      );
 
   @override
-  Widget body() => TDText(
-    '页面主视图内容\n对 Scaffold 做了封装，减少样板代码',
-    textAlign: TextAlign.center,
-  ).center().backgroundColor(backgroundSecondaryContainer);
+  Widget body() => const Text(
+        '页面主视图内容\n对 Scaffold 做了封装，减少样板代码',
+        textAlign: TextAlign.center,
+      )
+          // 防止外层路由跳转导致的异常，保持页面稳定展示
+          .center()
+          .backgroundColor(backgroundSecondaryContainer);
 
   @override
   Widget? floatingAction() {
-    return TDFab(theme: TDFabTheme.primary, text: 'Floating');
+    return FloatingActionButton.extended(
+      // Demo 路由暂未开启，避免触发无效导航
+      onPressed: () {},
+      label: const Text('Floating'),
+      icon: const Icon(Icons.add),
+    );
   }
 
   @override
   Widget? bottom() {
-    return TDBottomTabBar(
-      barHeight: 60,
-      TDBottomTabBarBasicType.iconText,
-      currentIndex: 2,
-      componentType: TDBottomTabBarComponentType.normal,
-      navigationTabs: [
-        tabItem(
-          '消息',
-          TDIcons.chat_message,
-          TDIcons.chat_message_filled,
-          0,
-          badge: true,
-          badgeCount: '3',
+    return NavigationBar(
+      height: 60,
+      selectedIndex: 2,
+      // Demo 路由暂未开启，避免触发无效导航
+      onDestinationSelected: (index) {},
+      destinations: const [
+        NavigationDestination(
+          icon: Badge(label: Text('3'), child: Icon(Icons.chat_bubble_outline)),
+          selectedIcon: Badge(label: Text('3'), child: Icon(Icons.chat_bubble)),
+          label: '消息',
         ),
-        tabItem('待办', TDIcons.file_1, TDIcons.file_1_filled, 1),
-        tabItem('工作台', TDIcons.app, TDIcons.app_filled, 2),
-        tabItem(
-          '通讯录',
-          TDIcons.personal_information,
-          TDIcons.personal_information_filled,
-          3,
+        NavigationDestination(
+          icon: Icon(Icons.insert_drive_file_outlined),
+          selectedIcon: Icon(Icons.insert_drive_file),
+          label: '待办',
         ),
-        tabItem('我的', TDIcons.user_1, TDIcons.user_1_filled, 4),
+        NavigationDestination(
+          icon: Icon(Icons.apps_outlined),
+          selectedIcon: Icon(Icons.apps),
+          label: '工作台',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.contact_page_outlined),
+          selectedIcon: Icon(Icons.contact_page),
+          label: '通讯录',
+        ),
+        NavigationDestination(
+          icon: Icon(Icons.person_outline),
+          selectedIcon: Icon(Icons.person),
+          label: '我的',
+        ),
       ],
     );
   }
 
-  /// 底部导航栏item
-  TDBottomTabBarTabConfig tabItem(
-    String title,
-    IconData icon,
-    IconData iconFill,
-    int index, {
-    bool badge = false,
-    String badgeCount = '1',
-  }) {
-    return TDBottomTabBarTabConfig(
-      tabText: title,
-      selectedIcon: Icon(iconFill, color: primary),
-      badgeConfig:
-          badge
-              ? BadgeConfig(
-                showBadge: true,
-                tdBadge: TDBadge(TDBadgeType.bubble, count: badgeCount),
-                badgeTopOffset: -2,
-                badgeRightOffset: -10,
-              )
-              : null,
-      unselectedIcon: Icon(icon),
-      onTap: () => {},
-    );
-  }
+  /// 底部导航栏item（已改为 Material NavigationBar，不再需要）
 }

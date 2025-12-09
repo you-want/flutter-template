@@ -2,11 +2,14 @@
     "cSpell.words": [
         "appbundle",
         "appcast",
+        "appdistribution",
+        "appstore",
+        "codesign",
         "fluttertdkit",
         "Getx",
         "MVVM",
         "screenutil",
-        "tdesign",
+        "subosito",
         "tdkit",
         "upgrader"
     ]

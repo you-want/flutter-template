@@ -1,5 +1,5 @@
-import 'package:flutter_td_getx_template/core/base/base_list/base_list_logic.dart';
-import 'package:flutter_td_getx_template/core/network/service/api_service.dart';
+import 'package:flutter_template/core/base/base_list/base_list_logic.dart';
+import 'package:flutter_template/core/network/service/api_service.dart';
 
 import '../../../core/model/entity/goods/goods.dart';
 import '../../../core/model/request/goods_search_request.dart';

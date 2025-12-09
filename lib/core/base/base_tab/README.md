@@ -1,6 +1,6 @@
 # Base Tab 标签页基类
 
-提供统一的标签页实现，基于 TDesign 的 TabBar 组件和 PageView 实现页面切换功能。
+提供统一的标签页实现，基于 Flutter 自带的 TabBar 组件和 PageView 实现页面切换功能。
 
 ## 文件说明
 
@@ -80,7 +80,7 @@ class MyTabView extends BaseTabView<MyTabLogic> {
 
 ### 2. 导航栏集成
 - 固定导航栏高度
-- TDesign TabBar 集成
+- Flutter 自带 TabBar 集成
 - 标签样式定制
 
 ### 3. 页面切换

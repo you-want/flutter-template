@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
 
 class AlertUtil {
   /// 默认的提示标题文本
@@ -11,17 +10,18 @@ class AlertUtil {
     String content, {
     String title = defaultTitleText,
   }) {
-    showGeneralDialog(
+    showDialog(
       context: Get.context!,
-      pageBuilder: (
-        BuildContext buildContext,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-      ) {
-        return TDConfirmDialog(
-          title: title,
-          content: content,
-          showCloseButton: true,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('关闭'),
+            ),
+          ],
         );
       },
     );
@@ -33,18 +33,25 @@ class AlertUtil {
     String title = defaultTitleText,
     rightBtnAction,
   }) {
-    showGeneralDialog(
+    showDialog(
       context: Get.context!,
-      pageBuilder: (
-        BuildContext buildContext,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-      ) {
-        return TDAlertDialog(
-          title: title,
-          content: content,
-          showCloseButton: true,
-          rightBtnAction: rightBtnAction,
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(title),
+          content: Text(content),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('取消'),
+            ),
+            FilledButton(
+              onPressed: () {
+                if (rightBtnAction != null) rightBtnAction();
+                Get.back();
+              },
+              child: const Text('确认'),
+            ),
+          ],
         );
       },
     );
@@ -59,35 +66,36 @@ class AlertUtil {
     required Function(String value) onConfirm,
   }) async {
     final TextEditingController textController = TextEditingController();
-    await showGeneralDialog(
+    await showDialog(
       context: Get.context!,
-      pageBuilder: (
-        BuildContext buildContext,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-      ) {
-        return StatefulBuilder(
-          builder: (
-            BuildContext context,
-            void Function(void Function()) setState,
-          ) {
-            return TDInputDialog(
-              textEditingController: textController,
-              title: title,
-              content: content,
-              hintText: hintText,
-              showCloseButton: true,
-              rightBtn: TDDialogButtonOptions(
-                title: '确认',
-                fontWeight: FontWeight.w600,
-                height: 56,
-                action: () {
-                  final inputValue = textController.text;
-                  onConfirm(inputValue);
-                },
+      builder: (ctx) {
+        return AlertDialog(
+          title: Text(title),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(content),
+              const SizedBox(height: 12),
+              TextField(
+                controller: textController,
+                decoration: InputDecoration(hintText: hintText),
               ),
-            );
-          },
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('取消'),
+            ),
+            FilledButton(
+              onPressed: () {
+                final inputValue = textController.text;
+                onConfirm(inputValue);
+                Get.back();
+              },
+              child: const Text('确认'),
+            ),
+          ],
         );
       },
     );
@@ -98,23 +106,35 @@ class AlertUtil {
     String content, {
     required Image image,
     String title = defaultTitleText,
-    TDDialogImagePosition imagePosition = TDDialogImagePosition.top,
+    DialogImagePosition imagePosition = DialogImagePosition.top,
   }) {
-    showGeneralDialog(
+    showDialog(
       context: Get.context!,
-      pageBuilder: (
-        BuildContext buildContext,
-        Animation<double> animation,
-        Animation<double> secondaryAnimation,
-      ) {
-        return TDImageDialog(
-          image: image,
-          title: title,
-          content: content,
-          imagePosition: imagePosition,
-          showCloseButton: true,
+      builder: (ctx) {
+        final contentWidget = Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (imagePosition == DialogImagePosition.top) image,
+            const SizedBox(height: 12),
+            Text(content),
+            const SizedBox(height: 12),
+            if (imagePosition == DialogImagePosition.bottom) image,
+          ],
+        );
+
+        return AlertDialog(
+          title: Text(title),
+          content: contentWidget,
+          actions: [
+            TextButton(
+              onPressed: () => Get.back(),
+              child: const Text('关闭'),
+            ),
+          ],
         );
       },
     );
   }
 }
+
+enum DialogImagePosition { top, bottom }

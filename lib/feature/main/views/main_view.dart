@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_td_getx_template/core/base/base/base_view.dart';
-import 'package:tdesign_flutter/tdesign_flutter.dart';
+import 'package:flutter_template/core/base/base/base_view.dart';
 
 import '../../../core/design_system/theme/color.dart';
 import '../logics/main_logic.dart';
@@ -25,35 +24,17 @@ class MainView extends BaseView<MainLogic> {
 
   @override
   Widget? bottom() {
-    return Obx(
-      () => TDBottomTabBar(
-        barHeight: 60,
-        TDBottomTabBarBasicType.iconText,
-        currentIndex: controller.mainState.pageIndex.value,
-        componentType: TDBottomTabBarComponentType.normal,
-        navigationTabs: [
-          tabItem('基类', TDIcons.layers, TDIcons.layers_filled, 0),
-          tabItem('网络', TDIcons.internet, TDIcons.internet_filled, 1),
-          tabItem('工具', TDIcons.tools, TDIcons.tools_filled, 2),
-          tabItem('主题', TDIcons.palette, TDIcons.palette_filled, 3),
-          tabItem('Demo', TDIcons.app, TDIcons.app_filled, 4),
-        ],
-      ),
-    );
+    return Obx(() => NavigationBar(
+          selectedIndex: controller.mainState.pageIndex.value,
+          onDestinationSelected: (index) => controller.tabBarClick(index),
+          destinations: const [
+            NavigationDestination(icon: Icon(Icons.layers_outlined), selectedIcon: Icon(Icons.layers), label: '基类'),
+            NavigationDestination(icon: Icon(Icons.language_outlined), selectedIcon: Icon(Icons.language), label: '网络'),
+            NavigationDestination(icon: Icon(Icons.build_outlined), selectedIcon: Icon(Icons.build), label: '工具'),
+            NavigationDestination(icon: Icon(Icons.palette_outlined), selectedIcon: Icon(Icons.palette), label: '主题'),
+            NavigationDestination(icon: Icon(Icons.apps_outlined), selectedIcon: Icon(Icons.apps), label: 'Demo'),
+          ],
+        ));
   }
 
-  /// 底部导航栏item
-  TDBottomTabBarTabConfig tabItem(
-    String title,
-    IconData icon,
-    IconData iconFill,
-    int index,
-  ) {
-    return TDBottomTabBarTabConfig(
-      tabText: title,
-      selectedIcon: Icon(iconFill, color: primary),
-      unselectedIcon: Icon(icon),
-      onTap: () => controller.tabBarClick(index),
-    );
-  }
 }
