@@ -45,6 +45,7 @@ dependencies:
 
   # 应用内更新 https://pub.dev/packages/upgrader
   upgrader: ^11.4.0
+  fluwx: ^5.7.5
 
 dev_dependencies:
   flutter_test:

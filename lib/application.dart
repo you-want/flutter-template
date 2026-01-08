@@ -7,6 +7,7 @@ import 'package:flutter_template/res/json_res.dart';
 import 'dart:convert';
 
 import 'core/util/storage/storage_util.dart';
+import 'core/util/wechat/wechat_util.dart';
 
 class Application {
   /// 主题 - 使用响应式变量 (Material 3)
@@ -24,6 +25,9 @@ class Application {
 
     /// 初始化全局存储
     await StorageUtil.init();
+
+    /// 初始化微信 SDK
+    await WechatUtil.init();
 
     /// 仅在调试模式下初始化 Alice
     initAlice();

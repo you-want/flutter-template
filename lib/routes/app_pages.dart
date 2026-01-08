@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import '../feature/main/bindings/main_binding.dart';
 import '../feature/main/views/main_view.dart';
 import '../feature/main/views/profile_view.dart';
+import '../feature/auth/views/login_view.dart';
+import '../feature/auth/bindings/login_binding.dart';
 import '../feature/update/bindings/update_binding.dart';
 import '../feature/update/views/update_view.dart';
 
@@ -18,6 +20,11 @@ class AppPages {
       binding: MainBinding(),
     ),
     // Demo routes temporarily removed to unblock Material migration preview
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+    ),
     GetPage(
       name: _Paths.PROFILE,
       page: () => const ProfileView(),

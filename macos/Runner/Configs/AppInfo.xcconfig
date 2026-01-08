@@ -8,7 +8,7 @@
 PRODUCT_NAME = flutter_td_getx_template
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.rain.fluttertdkit.flutterTDGetxTemplate
+PRODUCT_BUNDLE_IDENTIFIER = com.rain.fluttertdkit.flutterTemplate
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2025 com.rain.flutter_tdkit. All rights reserved.

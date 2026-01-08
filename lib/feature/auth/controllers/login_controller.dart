@@ -6,6 +6,11 @@ import 'package:flutter_template/core/base/base/base_logic.dart';
 import 'package:flutter_template/core/network/service/auth/auth_api.dart';
 import 'package:flutter_template/core/model/request/send_sms_request.dart';
 import 'package:flutter_template/core/model/request/sms_login_request.dart';
+import 'package:flutter_template/core/ui/dialog/loading_dialog.dart';
+import 'package:flutter_template/core/util/wechat/wechat_util.dart';
+import 'package:flutter_template/core/util/toast/toast_util.dart';
+import 'package:flutter_template/core/util/log/log_util.dart';
+import 'package:flutter_template/routes/app_pages.dart';
 
 class LoginController extends BaseLogic {
   final AuthApi _authApi = Get.find<AuthApi>();
@@ -106,9 +111,23 @@ class LoginController extends BaseLogic {
     final result = await _authApi.loginBySms(request);
     if (result.code == 1000) {
       // showToast('登录成功');
-      // TODO: 跳转到主页
+      Get.offAllNamed(Routes.MAIN);
     } else {
       // showToast(result.message ?? '登录失败');
+    }
+  }
+
+  /// 微信登录
+  Future<void> loginWithWechat() async {
+    LoadingDialog.show();
+    final code = await WechatUtil.login();
+    LoadingDialog.hide();
+
+    if (code != null) {
+      LogUtil.d("微信登录 Code: $code");
+      ToastUtil.success("微信授权成功");
+      // 模拟登录成功，跳转主页
+      Get.offAllNamed(Routes.MAIN);
     }
   }
 }

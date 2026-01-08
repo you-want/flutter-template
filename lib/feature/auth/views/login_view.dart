@@ -36,10 +36,55 @@ class LoginView extends GetView<LoginController> {
                 _buildSmsCodeInput(context),
                 const SizedBox(height: 48),
                 _buildLoginButton(),
+                const SizedBox(height: 40),
+                _buildWechatLoginButton(),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildWechatLoginButton() {
+    return Center(
+      child: Column(
+        children: [
+          Row(
+            children: [
+              const Expanded(child: Divider(color: Color(0xFFEEEEEE))),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  '其他登录方式',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: const Color(0xFF999999),
+                  ),
+                ),
+              ),
+              const Expanded(child: Divider(color: Color(0xFFEEEEEE))),
+            ],
+          ),
+          const SizedBox(height: 24),
+          InkWell(
+            onTap: controller.loginWithWechat,
+            child: Container(
+              width: 48,
+              height: 48,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xFF00C800), // 微信绿
+              ),
+              alignment: Alignment.center,
+              child: const Icon(
+                Icons.wechat,
+                color: Colors.white,
+                size: 28,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
